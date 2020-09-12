@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <link
+      rel="preload"
+      href="fonts/subset/D2Coding.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="fonts/subset/D2Coding-ligature.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="css/D2Coding.css" />
+    <link rel="stylesheet" href="css/D2Coding-ligature.css" />
+
+    <style>
+      main {
+        display: flex;
+      }
+
+      .d2coding {
+        font-family: "D2Coding";
+      }
+
+      .d2coding-ligature {
+        font-family: "D2Coding ligature";
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="d2coding"></div>
+      <div class="d2coding-ligature"></div>
+    </main>
+    <script>
+      const rangeCharacter = (begin, end) => {
+        const lengthArray = [...Array(end - begin + 1).keys()];
+        const charCodes = lengthArray.map((i) => begin + i);
+        return String.fromCharCode(...charCodes);
+      };
+
+      // U+0000..U+007F: Basic Latin
+      // U+AC00..U+D7AF: Hangul Syllables
+      let characters = rangeCharacter(0x0020, 0x007e);
+      characters += rangeCharacter(0xac00, 0xac00 + 21 * 28);
+
+      [].map.call(document.querySelectorAll("main > div"), (node) => {
+        node.textContent = characters;
+      });
+    </script>
+  </body>
+</html>
